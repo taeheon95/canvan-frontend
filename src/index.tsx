@@ -5,7 +5,6 @@ import { store } from "./store";
 import { Provider } from "react-redux";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter } from "react-router-dom";
-import "@testing-library/jest-dom";
 
 const queryClient = new QueryClient();
 
