@@ -55,7 +55,7 @@ function ListField(props: PropTypes) {
         {...provided.draggableProps}
         {...provided.dragHandleProps}
       >
-        <TitleBox>{list.name}</TitleBox>
+        <TitleBox>{list.title}</TitleBox>
         <Droppable droppableId={`card_droppable_${list.id}`} type="card">
           {(provided, snapshot) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
@@ -71,7 +71,7 @@ function ListField(props: PropTypes) {
                       {...provided.dragHandleProps}
                       {...provided.draggableProps}
                     >
-                      {card.name}
+                      {card.title}
                     </CardBox>
                   )}
                 </Draggable>

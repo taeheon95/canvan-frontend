@@ -4,6 +4,8 @@ import CanvanBoardPresenter from "./CanvanBoardPresenter";
 import { List } from "../../types";
 import { useAppDispatch } from "../../hooks";
 import { dragList, dragCard } from "../../store/canvan";
+import { useMutation } from "react-query";
+import axios from "axios";
 
 interface PropsType {
   listArray: List[];
@@ -12,13 +14,20 @@ interface PropsType {
 function CanvanBoardContainer(props: PropsType) {
   const { listArray } = props;
   const dispatch = useAppDispatch();
+  const mutation = useMutation(async (list: Partial<List[]>) => {
+    return await axios.put(`list`, {
+      list,
+    });
+  });
 
   const onDragEnd = useCallback(
     (result: DropResult) => {
+      console.log(result);
       if (!result.destination) {
         return;
       }
       if (result.type === "list") {
+        const [, dragListId] = result.draggableId.split("_");
         dispatch(
           dragList({
             startIdx: result.source.index,

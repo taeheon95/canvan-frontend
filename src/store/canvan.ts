@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { testData } from "../testData";
+import { List } from "../types";
 
 interface DragList {
   startIdx: number;
@@ -13,12 +13,16 @@ interface DragCard {
   endIdx: number;
 }
 
-const initialState = testData;
+const initialState: List[] = [];
 
 const canvan = createSlice({
   name: "canvan",
   initialState,
   reducers: {
+    setList: (state, action: PayloadAction<List[]>) => {
+      state = action.payload;
+      return state;
+    },
     dragList: (state, action: PayloadAction<DragList>) => {
       const { startIdx, endIdx } = action.payload;
       const [removed] = state.splice(startIdx, 1);
@@ -39,5 +43,5 @@ const canvan = createSlice({
   },
 });
 
-export const { dragList, dragCard } = canvan.actions;
+export const { dragList, dragCard, setList } = canvan.actions;
 export default canvan.reducer;

@@ -9,7 +9,7 @@ const Box = styled.div`
 `;
 
 function CardBox({ card }: { card: Card }) {
-  return <Box>{card.name}</Box>;
+  return <Box>{card.title}</Box>;
 }
 
 export default CardBox;
