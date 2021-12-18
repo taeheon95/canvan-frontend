@@ -3,6 +3,7 @@ import axios, { AxiosResponse } from "axios";
 import { useQuery } from "react-query";
 import { Contact } from "../../types";
 import ContactContainer from "./ContactContainer";
+import Spinner from "../../components/Spinner";
 
 function ContactPage() {
   const { data, isLoading, isError } = useQuery<Contact[], Error>(
@@ -15,7 +16,7 @@ function ContactPage() {
     }
   );
   return isLoading ? (
-    <div>로딩중</div>
+    <Spinner />
   ) : isError ? (
     <div>에러</div>
   ) : (
