@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEventHandler, MouseEventHandler } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import ListField from "../../components/ListField";
@@ -11,10 +11,12 @@ const Box = styled.div`
 
 interface PropsType {
   listArray: List[];
+  onAddList: MouseEventHandler;
+  onChangeTitle: ChangeEventHandler;
 }
 
 function CanvanBoardPresenter(props: PropsType) {
-  const { listArray } = props;
+  const { listArray, onAddList, onChangeTitle } = props;
   return (
     <Droppable droppableId="list_droppable" direction="horizontal" type="list">
       {(provided, snapshot) => (
@@ -31,12 +33,19 @@ function CanvanBoardPresenter(props: PropsType) {
             </Draggable>
           ))}
           {provided.placeholder}
+          <input title="listInput" onChange={onChangeTitle} />
+          <button onClick={onAddList}>리스트 추가</button>
         </Box>
       )}
     </Droppable>
   );
 }
 
-export default React.memo(CanvanBoardPresenter, (prev, next) => {
-  return prev.listArray === next.listArray;
-});
+export default CanvanBoardPresenter;
+
+// export default React.memo(CanvanBoardPresenter, (prev, next) => {
+//   return (
+//     prev.listArray === next.listArray &&
+//     prev.onChangeTitle === next.onChangeTitle
+//   );
+// });

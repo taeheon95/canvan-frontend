@@ -1,9 +1,9 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import CanvanBoardPresenter from "./CanvanBoardPresenter";
 import { List } from "../../types";
 import { useAppDispatch } from "../../hooks";
-import { dragList, dragCard } from "../../store/canvan";
+import { dragList, dragCard, addList } from "../../store/canvan";
 import { useMutation } from "react-query";
 import axios from "axios";
 
@@ -13,12 +13,8 @@ interface PropsType {
 
 function CanvanBoardContainer(props: PropsType) {
   const { listArray } = props;
+  const [title, setTitle] = useState<string>("");
   const dispatch = useAppDispatch();
-  const mutation = useMutation(async (list: Partial<List[]>) => {
-    return await axios.put(`list`, {
-      list,
-    });
-  });
 
   const onDragEnd = useCallback(
     (result: DropResult) => {
@@ -50,13 +46,31 @@ function CanvanBoardContainer(props: PropsType) {
     [dispatch]
   );
 
+  const onAddList = useCallback(() => {
+    dispatch(addList(title));
+  }, [dispatch, title]);
+
+  const onChangeTitle = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { value } = e.target;
+      setTitle(value);
+    },
+    []
+  );
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <CanvanBoardPresenter listArray={listArray} />
+      <CanvanBoardPresenter
+        listArray={listArray}
+        onAddList={onAddList}
+        onChangeTitle={onChangeTitle}
+      />
     </DragDropContext>
   );
 }
 
-export default React.memo(CanvanBoardContainer, (prev, next) => {
-  return prev.listArray === next.listArray;
-});
+export default CanvanBoardContainer;
+
+// export default React.memo(CanvanBoardContainer, (prevProps, nextProps) => {
+//   return prevProps.listArray === nextProps.listArray;
+// });

@@ -9,8 +9,8 @@ import Spinner from "./components/Spinner";
 function App() {
   return (
     <>
-      {/* <CanvanBoard /> */}
-      <Spinner />
+      <CanvanBoard />
+      {/* <Spinner /> */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="board" element={<BoardList />}>
