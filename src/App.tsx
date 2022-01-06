@@ -5,11 +5,13 @@ import BoardList from "./pages/BoardList";
 import Home from "./pages/Home";
 import ContactPage from "./pages/Contact";
 import Spinner from "./components/Spinner";
+import Calendar from "./components/Calendar";
 
 function App() {
   return (
     <>
       <CanvanBoard />
+      <Calendar />
       {/* <Spinner /> */}
       <Routes>
         <Route path="/" element={<Home />} />
